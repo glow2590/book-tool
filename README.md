@@ -38,12 +38,61 @@ License
 Book Tool is open source software licensed under the MIT license.
 
 Code Documentation
+BookController
+The BookController class is responsible for handling requests related to books. It includes the following methods:
+
+create
+The create method is responsible for displaying the book creation form. It returns the create view with an empty Book model.
+
+store
+The store method is responsible for storing a new book in the database. It takes a Request object as a parameter, which contains the book data submitted by the user.
+
+The method creates a new Book model using the authenticated user's books relationship and the data from the Request object. It then redirects the user to the book show view using the route method on the redirect helper.
+
+show
+The show method is responsible for displaying a single book. It takes the book's ID as a parameter and retrieves the corresponding Book model from the database.
+
+The method then returns the show view with the Book model as a parameter.
+
+SectionController
+The SectionController class is responsible for handling requests related to sections. It includes the following methods:
+
+create
+The create method is responsible for displaying the section creation form. It takes the book's ID as a parameter and retrieves the corresponding Book model from the database.
+
+The method then returns the create view with an empty Section model and the Book model as parameters.
+
+store
+The store method is responsible for storing a new section in the database. It takes the book's ID and a Request object as parameters, which contains the section data submitted by the user.
+
+The method creates a new Section model using the book's sections relationship and the data from the Request object. It then redirects the user to the book show view using the route method on the redirect helper.
+
+show
+The show method is responsible for displaying a single section. It takes the book's ID and the section's ID as parameters and retrieves the corresponding Book and Section models from the database.
+
+The method then returns the show view with the Book and Section models as parameters.
+
 SubSectionController
 The SubSectionController class is responsible for handling requests related to subsections. It includes the following methods:
 
+create
+The create method is responsible for displaying the subsection creation form. It takes the book's ID and the section's ID as parameters and retrieves the corresponding Book and Section models from the database.
+
+The method then returns the create view with an empty SubSection model and the Book and Section models as parameters.
+
+store
+The store method is responsible for storing a new subsection in the database. It takes the book's ID, the section's ID, and a Request object as parameters, which contains the subsection data submitted by the user.
+
+The method creates a new SubSection model using the section's subSections relationship and the data from the Request object. It then redirects the user to the section show view using the route method on the redirect helper.
+
+show
+The show method is responsible for displaying a single subsection. It takes the book's ID, the section's ID, and the subsection's ID as parameters and retrieves the corresponding Book, Section, and SubSection models from the database.
+
+The method then returns the show view with the Book, Section, and SubSection models as parameters.
+
 destroy
-The destroy method is responsible for deleting a subsection from the database. It takes three parameters: $book, $section, and $subsection, which are used to identify the subsection to be deleted.
+The destroy method is responsible for deleting a subsection from the database. It takes the book's ID, the section's ID, and the subsection's ID as parameters and retrieves the corresponding SubSection model from the database.
 
-The method first retrieves the SubSection model from the database using the $subsection parameter. It then checks if the authenticated user is the author of the book or a collaborator. If the user is not authorized to delete the subsection, the method aborts with a 403 error.
+The method checks if the authenticated user is the author of the book or a collaborator. If the user is not authorized to delete the subsection, the method aborts with a 403 error.
 
-If the user is authorized, the method deletes the subsection from the database using the delete method on the $subSection model. Finally, the method redirects the user to the section that the deleted subsection belonged to using the route method on the redirect helper.
+If the user is authorized, the method deletes the subsection from the database using the delete method on the SubSection model. Finally, the method redirects the user to the section show view using the route method on the redirect helper.
